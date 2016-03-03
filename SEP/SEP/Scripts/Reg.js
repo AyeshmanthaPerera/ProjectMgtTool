@@ -112,11 +112,11 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    console.log("Hanuu BAbA");
-    $("#we1").click(function () {
+    
+    $("#bod1").before(function () {
 
         $("#Ak_para").hide();
-
+        
         $.ajax({
             url: '/Dropdwn/Not',
             data :"",
@@ -125,6 +125,7 @@ $(document).ready(function () {
             success: function (data) {
                 var text =data.data.length;
                 console.log(text);
+                
                 $("#NotiNo").text(text);
                 $("#NotiNo1").text(text);
 
@@ -133,7 +134,7 @@ $(document).ready(function () {
                     var t = p.split("Student");
                     console.log(t[0]);
 
-                      $("<li><a><span class='photo'><img alt='avatar' src='asasas.jpg'></span> <span class='subject'> <span class='from'>"+t[0]+"</span><span class='time'>Just now</span><span class='message'>" + t[1] + "</span></a></li>").appendTo('ul.ak_slide1');
+                    $("<li><a><span class='photo'><img alt='avatar' src=" + data.data2[i] + "></span> <span class='subject'> <span class='from'>" + t[0] + "</span><span class='time'>" + data.data3[i] + "</span><span class='message'>" + t[1] + "</span></a></li>").appendTo('ul.ak_slide1');
                 //  $("<li> <a> <div class='task-info'><div class='desc'>" + data.data[i] + "</div></div></a></li>")
                 //  .appendTo('ul.ak_slide1');
                 }
@@ -141,13 +142,13 @@ $(document).ready(function () {
                
             },
             error: function () {
-                alert("Failed");
-
+                
             }
 
         });
 
         $.ajax({
+            
             url: '/Dropdwn/NotLec',
             data: "",
             type: "POST",
@@ -155,16 +156,19 @@ $(document).ready(function () {
             success: function (data) {
                 var text = data.data.length;
                 console.log(text);
-                for (var i = 0 ; i < text ; i++) {
-                    $("<li id = 'ak2'> <a><span id = 'sp2'>" + data.data[i] + "</span><br/><input type='button' value ='Confirm' id='cnf1'/><input type='button' value ='Decline' id='cnf1'/></a></li>")
-                   .appendTo('ul.ak_slide2');
+                console.log("Aiyooo");
+               for (var i = 0 ; i < text ; i++) {
+                        var p = data.data[i]+" ";
+                        var t = p.split("Student");
+                        console.log(t[0]);
+                   $("<div class='desc' id ='ak2'> <div class='thumb'><i><span class='photo'><img alt='avatar' src=" + data.data2[i] + " width='30px' height='30px' ></span></i></div><div class='details'> <p><muted>" + data.data3[i] + "</muted><br /> <span style='font-size:11px'><a href='#' id='sp2'>" + t[0] + "</a>" + t[1] + "</span><br /><input type='button' class='btn btn-default btn-xs' value ='Confirm' id='cnf1'/><input type='button' class='btn btn-default btn-xs' value ='Decline' id='cnf1'/></p></div></div>")
+                   .appendTo('.Request1');
                 }
 
 
             },
             error: function () {
-                alert("Failed");
-
+                
             }
 
         });
@@ -177,12 +181,14 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(document).on('click', '#cnf1', function () {
+        console.log("Hanuu BAbA1111111111");
         $("#Ak_para").show();
+        
         $("#cnf1").addClass("clicked");
         var t = $(".clicked").attr("value");
         $("#sp2").addClass("clicked2");
         var t2 = $(".clicked2").html();
-        var p = t2.split(" ");
+        var p = t2;
         console.log(t + "Ayesh"+p[0]);
         if (t == "Confirm") {
             $.ajax({
@@ -192,12 +198,11 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function () {
                     alert("Success");
-                    $(".clicked").parent().remove();
+                    $(".clicked").parent().parent().parent().remove();
 
                 },
                 error: function () {
-                    alert("Failed");
-
+                
                 }
 
             });
@@ -211,14 +216,15 @@ $(document).ready(function () {
                 success:function(){
                     alert("Success");
 
+                    $(".clicked").parent().parent().parent().remove();
+
                 },
                 error: function () {
-                    alert("Failed");
-
+                
                 }
 
             });
         }
 
     });
-   });
+});
