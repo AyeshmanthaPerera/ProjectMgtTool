@@ -5,141 +5,75 @@
 }
 
 <h2>Delete</h2>
+<!--external css-->
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/sweetalert/sweet-alert.css")">
-@*<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CGPA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CGPA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Avatar)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CV)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>*@
-
-    <br>
-    <div class="row" style="margin-left:120px;margin-top:-10px">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <!-- WHITE PANEL - TOP USER -->
-                <div class="white-panel pn" style="width:450px;height:400px">
-                    <div class="white-header">
-                        <h5>User Details</h5>
+<br>
+<div class="row" style="margin-left:120px;margin-top:-10px">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+            <!-- WHITE PANEL - TOP USER -->
+            <div class="white-panel pn" style="width:450px;height:400px">
+                <div class="white-header">
+                    <h5>User Details</h5>
+                </div>
+                <p><img src="@Model.Avatar" class="img-circle" width="100" height="100"></p>
+                <p class="green-header"><b>@Html.DisplayFor(model => model.Name)</b></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="green-header">Email</p>
+                        <p>@Html.DisplayFor(model => model.Email)</p>
                     </div>
-                    <p><img src="@Model.Avatar" class="img-circle" width="100" height="100"></p>
-                    <p class="green-header"><b>@Html.DisplayFor(model => model.Name)</b></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="green-header">Email</p>
-                            <p>@Html.DisplayFor(model => model.Email)</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="green-header">Contact No</p>
-                            <p>@Html.DisplayFor(model => model.ContactNo)</p>
-                        </div>
+                    <div class="col-md-6">
+                        <p class="green-header">Contact No</p>
+                        <p>@Html.DisplayFor(model => model.ContactNo)</p>
                     </div>
+                </div>
 
+                <p class="green-header">CGPA</p>
+                <p>@Html.DisplayFor(model => model.CGPA)</p>
 
-                    <p class="green-header">CGPA</p>
-                    <p>@Html.DisplayFor(model => model.CGPA)</p>
+                <a class="" data-toggle="modal" href="login.html#myModal1">
+                    View The CV
+                </a>
 
-                    <a class="" data-toggle="modal" href="login.html#myModal1">
-                        View The CV
-                    </a>
+                <!-- Modal -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
-                    <!-- Modal -->
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">CV</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p><embed src="@Model.CV" width="500" height="500"></p>
-                                </div>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">CV</h4>
+                            </div>
 
-                                <div class="modal-footer">
-                                    <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                            <div class="modal-body">
+                                <p><embed src="@Model.CV" width="500" height="500"></p>
+                            </div>
 
-                                </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+
                             </div>
                         </div>
                     </div>
-                    <!-- modal -->
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-actions no-color">
-                            <input type="submit" value="Delete" class="btn btn-default" id="ak_del" /> |
-                            @Html.ActionLink("Back to List", "Index")
-                        </div>
-                    }
-
-
-
                 </div>
-            </div><!-- /col-md-4 -->
-        </div>
-    </div>
+                <!-- modal -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-@{ 
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-default" id="ak_del" /> |
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                }
+            </div>
+        </div><!-- /col-md-4 -->
+    </div>
+</div>
+
+@{
+    <!-- js placed at the end of the document so the pages load faster -->
     <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
-    
 }

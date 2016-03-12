@@ -1,36 +1,50 @@
 ﻿body {
-    
 }
 
 #imgBox {
-    border:solid 1px black;
-    background-image:url(/Content/ImagesK/wallpaper6.png);
-    
+    background-image: url(/Content/Images2/wallpaper14.png);
 }
-#kkkk {
-     border-radius: 50%;
+
+#sortedList {
+    overflow: auto;
+    max-height: 300px;
 }
+
+#innerImg {
+    height: 150px;
+    width: 150px;
+    float: right;
+    border-radius: 50%;
+}
+
+#lReg {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 200px;
+    display: none;
+}
+
 #proName {
-    background-image:url(/Content/ImagesK/wallpaper6.png);
-    height:auto;
-    padding:10px; 
-    margin-bottom:10px;
-    color:white;
-    font-style:normal;
-    font-size:large;
+    background-image: url(/Content/Images2/wallpaper14.png);
+    height: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+    font-style: normal;
+    font-size: large;
 }
-#detailsTbl{
-    border:1px solid #c2c2a3;
-    
+
+#detailsTbl {
+    border: 1px solid #c2c2a3;
 }
 
 #linkOnList {
     text-decoration: none;
 }
 
-#linkOnList:hover { 
-    color: darkblue;
-}
+    #linkOnList:hover {
+        color: darkblue;
+    }
 
 #addGrp {
     border: dotted 1px black;
@@ -38,15 +52,45 @@
     width: 100px;
     text-align: center;
     color: white;
-    background-color: #0f0f3e;
-    visibility :hidden;
+    background-color: #ffd777;
 }
+
 #creategrp {
     border: dotted 1px black;
-    height: 106px;
+    height: 200px;
     width: 100px;
     text-align: center;
     color: white;
-    background-color: #0f0f3e;
+    background-color: #ffd777;
+}
 
+#row1 {
+    height: 10px;
+    border: 1px black solid;
+}
+
+#tile {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+#Grptable {
+    column-width: auto;
+    visibility: visible;
+}
+
+#imgIcon {
+    height: 40px;
+    width: 40px;
+}
+
+#sendRequest {
+    height: 30px;
+    color: black;
+    background-color: #ffd777;
+}
+
+#btnCreate {
+    background-color: #ffd777;
 }

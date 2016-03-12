@@ -1,10 +1,74 @@
-﻿
+﻿@model IEnumerable<SEP.Models.AllocatedLecturers>
+
 @{
     ViewBag.Title = "Error";
+    string ErrorText = "";
+
+
+    string max = (string)TempData["max"];
+    string exists = (string)TempData["exists)"];
+
+
+    if (max != null)
+    {
+        if (max.Equals("null"))
+        {
+            ErrorText = "Sorry.You have Exceed the Number of lecture for this supervisor";
+        }
+
+    }
+    if (exists != null)
+    {
+        if (exists.Equals("letnum"))
+        {
+            ErrorText = "Sorry.You have already added";
+        }
+    }
+
+
 }
 
-<h2 style="color:red">You Have Already Added the lecture for this supervisor.Please add a new Lecture</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-<a href="~/AllocatedLecturers/Create" class="btn btn-info btn-sm">
-    <span class="glyphicon glyphicon-arrow-left"></span> Add a New Lecturer
-</a>
+    <div class="container">
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div style="padding:10px" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Error Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <b style="color:red;font-size:16px">@ErrorText</b>
+                        <b style="font-size:16px">.Please try a new group ID</b>
+                    </div>
+
+                    <a href="~/Groups/Create" class="btn btn-info btn-sm">
+                        Add a New GroupID
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $('#myModal').modal({ backdrop: 'static', keyboard: false })
+
+        $('.modal').modal('show');
+    </script>
+</body>
+</html>

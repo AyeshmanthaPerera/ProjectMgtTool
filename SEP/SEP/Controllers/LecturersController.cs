@@ -16,169 +16,275 @@ namespace SEP.Controllers
 {
     public class LecturersController : Controller
     {
+        ValidateController Validater = new ValidateController();
         private DB2 db = new DB2();
-
-        // GET: Lecturers
-        public ActionResult Index(string searchterm = null, int page = 1)
+        /// <summary>
+        /// According to the search term provide by user
+        /// get the list of lecturers to a paged
+        /// list with 5 elements per each page
+        /// </summary>
+        /// <param name="searchterm"></param>
+        /// <param name="page"></param>
+        /// <returns>"IEnumarable List Of Lecturers"</returns>
+        [AuthorizeUserAcessLevel(UserRole = "Lecturer,HOD")]
+        public ActionResult Index(string searchterm = null, int page = MvcApplication.Pr_one)
         {
+            //Gett the fields according to the given search term
             var model = (from r in db.Lecturers
                          orderby r.Name ascending
-                         where (r.Name.Contains(searchterm) || searchterm == null)
-                         select r).ToPagedList(page, 3);
+                         where (r.Name.Contains(searchterm) || string.IsNullOrEmpty(searchterm))
+                         select r).ToPagedList(page, MvcApplication.Pr_five);
             return View(model);
+
         }
 
+        /// <summary>
+        /// "According to the given id 
+        /// provide the details of the
+        /// Lecturer"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>"Returns the Object from Lecturer Entity type"</returns>
         // GET: Lecturers/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Lecturer lecturer = db.Lecturers.Find(id);
-            if (lecturer == null)
+            if (string.IsNullOrEmpty(lecturer.Name))
             {
                 return HttpNotFound();
             }
             return View(lecturer);
         }
-
+        /// <summary>
+        /// Returns the create view
+        /// works on the GET requests only
+        /// </summary>
+        /// <returns></returns>
         // GET: Lecturers/Create
         public ActionResult Create()
         {
             return View();
         }
+
         // POST: Lecturers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// If the given details are valid
+        /// create a new Lecturer works only 
+        /// on POST requests
+        /// </summary>
+        /// <param name="lecturer"></param>
+        /// <param name="Avatar"></param>
+        /// <param name="CV"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LecturerId,Name,Email,ContactNo,Module,Qualification,Avatar")] Lecturer lecturer, HttpPostedFileBase Avatar)
-        {       
-                Session["UserName"] = lecturer.Name;
-                Session["Email"] = lecturer.Email;
-                Session["ContactNo"] = lecturer.ContactNo;
-                Session["id"] = lecturer.LecturerId;
-            if (ModelState.IsValid)
+        {
+            var extension = Path.GetExtension(Avatar.FileName);
+            if (ModelState.IsValid && Avatar != null && (extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".GIF")))
+            {
+                string path = Server.MapPath("~/Content/Images2");
+                //calling the image upload method in ValidateController
+                lecturer.Avatar = Validater.ImageUpload(Avatar, path);
+                lecturer.Qualification = "Lecturer";
+                lecturer.Module = "Pending";
+                //calling the RegisterSessionSet to set the sessions 
+                RegisterSessionSet(lecturer.Name, lecturer.Email, lecturer.Avatar, 0.0, lecturer.ContactNo, "Lecturer", lecturer.LecturerId);
+
+
+                //Save Changes in DB
+                db.Lecturers.Add(lecturer);
+
+                RequestNew LecReq = new RequestNew { Name = "Auro", Request = lecturer.Name + " Lecturer Been Added To the SEP Tool As a lectureCUT" + lecturer.Avatar + "CUT" + MvcApplication.time, Status = MvcApplication.Pr_two, Loaded = MvcApplication.Pr_two };
+                db.RequestsNew.Add(LecReq);
+                db.SaveChanges();
+
+
+                return RedirectToActionPermanent("Pending", "Register");
+            }
+            else if (!(extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".GIF")))
             {
 
-                if (Avatar != null)
-                {
-                    var ex = Path.GetExtension(Avatar.FileName);
-                    if (ex.Equals(".jpg") || ex.Equals(".jpeg") || ex.Equals(".GIF"))
-                    {
-                        var fileName = Path.GetFileName(Avatar.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Content/Images2"), fileName);
-                        string[] path2 = path.Split(new string[] { "SEP\\SEP" }, StringSplitOptions.None);
-                        Debug.Write(path2[1]);
-                        Avatar.SaveAs(path);
-                        lecturer.Avatar = path2[1] + "";
-                    }
+                TempData["error"] = "Please Use A Valid Avatar";
 
-                }
-                Session["Avatar"] = lecturer.Avatar;
-                db.Lecturers.Add(lecturer);
-                db.SaveChanges();
-                string query = "insert into  dbo.Requests(Name,Request,Status,Loaded) values(@a1,@a2,@a3,@a4)";
-                List<object> parameterList = new List<object>();
-                parameterList.Add(new SqlParameter("@a1", "Auro"));
-                parameterList.Add(new SqlParameter("@a2", lecturer.Name + "Been Added To the SEP Tool "));
-                parameterList.Add(new SqlParameter("@a3", 2));
-                parameterList.Add(new SqlParameter("@a4", 2));
-                object[] parameters123 = parameterList.ToArray();
-                int rs = db.Database.ExecuteSqlCommand(query, parameters123);
-
-
-
-                return RedirectToActionPermanent("Index","Home");
             }
 
             return View(lecturer);
+
+        }
+
+        public void RegisterSessionSet(string ename, string Email, string Avatar, double CGPA, int ContactNo, string Position, string ResgistrationNo)
+        {
+
+            Session["UserName"] = ename;
+            Session["Email"] = Email;
+            Session["Avatar"] = Avatar;
+            Session["CGPA"] = CGPA;
+            Session["ContactNo"] = ContactNo;
+            Session["id"] = ResgistrationNo;
+            Session["Position"] = Position;
+
         }
 
         // GET: Lecturers/Edit/5
-       
+        /// <summary>
+        /// Find if theres any Lecturers for the given id 
+        /// if exists returning the Edit view
+        /// works on GET methods
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Lecturer type object</returns>
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lecturer lecturer = db.Lecturers.Find(id);
-            if (lecturer == null)
+            else
             {
-                return HttpNotFound();
+                //Finding the Lecturer for the given Id
+                Lecturer lecturer = db.Lecturers.Find(id);
+                if (lecturer == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    return View(lecturer);
+
+                }
             }
-            return View(lecturer);
         }
 
         // POST: Lecturers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
+        /// <summary>
+        /// If the given details are valid 
+        /// change the attributes of the selected Lecturer object
+        /// </summary>
+        /// <param name="lecturer"></param>
+        /// <param name="Avatar"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LecturerId,Name,Email,ContactNo,Module,Qualification,Avatar")] Lecturer lecturer, HttpPostedFileBase Avatar)
         {
-            if (ModelState.IsValid)
+            try
             {
+                lecturer.Qualification = "HOD";
+                var extension = Path.GetExtension(Avatar.FileName);
 
-                if (Avatar != null) 
+                //To check the Model is Valid and the Image is Valid
+                if (ModelState.IsValid && (extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".GIF")))
                 {
-                    var ex = Path.GetExtension(Avatar.FileName);
-                    if (ex.Equals(".jpg") || ex.Equals(".jpeg") || ex.Equals(".GIF"))
-                    {
-                        var fileName = Path.GetFileName(Avatar.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Content/Images2"), fileName);
-                        string[] path2 = path.Split(new string[] { "SEP\\SEP" }, StringSplitOptions.None);
-                        Debug.Write(path2[1]);
-                        Avatar.SaveAs(path);
-                        lecturer.Avatar = path2[1] + "";
-                    }
+                    string path = Server.MapPath("~/Content/Images2");
+
+                    var fileName = Path.GetFileName(Avatar.FileName);
+                    //Inserting the Image File
+                    lecturer.Avatar = Validater.ImageUpload(Avatar, path);
+                    //If the Changes are valid saving them to the DB
+                    db.Entry(lecturer).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if ((!(extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".GIF"))))
+                {
+                    Debug.Write("Invalid");
+                    TempData["error"] = "Please Use A Valid Avatar";
+                    return View(lecturer);
 
                 }
-                db.Entry(lecturer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return View(lecturer);
+            catch (System.NullReferenceException)
+            {
+                TempData["error"] = "Please Use A Valid Avatar";
+
+            }
+
+            if (!ModelState.IsValid) {
+                Debug.Write("Invalid mate");
+                return View(lecturer);
+            }
+            return ViewBag;
         }
 
+
+
+        /// <summary>
+        /// Find if theres any Lecturers for the given id 
+        /// if exists returning the Delete view
+        /// works on GET methods
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Lecturer type object</returns>
         // GET: Lecturers/Delete/5
+        [AuthorizeUserAcessLevel(UserRole = "HOD")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lecturer lecturer = db.Lecturers.Find(id);
-            if (lecturer == null)
+            else
             {
-                return HttpNotFound();
-            }
-            TempData["Message2"] = "Lec";
+                //Find the Lecture from the DB
+                Lecturer lecturer = db.Lecturers.Find(id);
+                if (string.IsNullOrEmpty(lecturer.Name))
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    TempData["Message2"] = "Lec";
 
-            return View(lecturer);
+                    return View(lecturer);
+                }
+            }
         }
 
+        /// <summary>
+        /// If the user wants to delete the Lecturer object 
+        /// this will do it 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // POST: Lecturers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeUserAcessLevel(UserRole = "HOD")]
         public ActionResult DeleteConfirmed(string id)
         {
+            //Find Any lectures for the given ID
             Lecturer lecturer = db.Lecturers.Find(id);
+
+            //Remove Lecturer from the DB
             db.Lecturers.Remove(lecturer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        /// <summary>
+        /// After performing the action relate to database 
+        /// to turn of the db connection
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
             }
-            base.Dispose(disposing);
+            else
+            {
+                base.Dispose(disposing);
+
+            }
         }
     }
 }

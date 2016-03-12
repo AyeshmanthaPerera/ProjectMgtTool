@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Update Allocated Lecturers</h2>
 
 
 @using (Html.BeginForm())
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Supervisors, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Supervisors, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Supervisors", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Supervisors, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Lecturers, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Lecturers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Lecturers", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Lecturers, "", new { @class = "text-danger" })
             </div>
         </div>

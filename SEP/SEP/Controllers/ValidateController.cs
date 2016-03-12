@@ -27,14 +27,13 @@ namespace SEP.Controllers
             }
         }
         [HttpPost]
-        public string ImageUpload(HttpPostedFileBase Avatar)
+        public string ImageUpload(HttpPostedFileBase Avatar,string mpath)
         {
             string[] path2 = { };
             var fileName = Path.GetFileName(Avatar.FileName);
-            Debug.Write(fileName);
             try
             {
-                var path = Path.Combine(Server.MapPath("~/Content/Images2"), fileName);
+                var path = Path.Combine(mpath, fileName);
                 path2 = path.Split(new string[] { "SEP\\SEP" }, StringSplitOptions.None);
                 Avatar.SaveAs(path);
              

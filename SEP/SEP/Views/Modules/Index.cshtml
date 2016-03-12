@@ -9,24 +9,24 @@
 @Styles.Render("~/content/bootstrapcss")
 <h1>Modules</h1>
 
-    <table class="table">
-        <tr></tr>
+<table class="table">
+    <tr></tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
 
-                    <h4>     @Html.ActionLink(item.Description, "Description", new { id = item.ModuleId }) </h4>
+                <h4>     @Html.ActionLink(item.Description, "Description", new { id = item.ModuleId }) </h4>
 
-                </td>
+            </td>
 
-            </tr>
-        }
+        </tr>
+    }
 
-    </table>
+</table>
 
-    @Html.ActionLink("View Details", "ViewAll", "Modules")
+@Html.ActionLink("View Details", "ViewAll", "Modules")
 
 
 

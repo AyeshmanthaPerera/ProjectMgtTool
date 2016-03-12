@@ -1,0 +1,70 @@
+﻿@model IEnumerable<object>
+
+@{ 
+    List<SEP.Models.AllocatedLecturers> supervisor = Model.ToList()[0] as List<SEP.Models.AllocatedLecturers>;
+    List<SEP.Models.Group> groups = Model.ToList()[1] as List<SEP.Models.Group>;
+    var i = 0;
+}
+
+<hr />
+<h3>Group ID</h3>
+<ul>
+    @foreach (var item in groups)
+    {
+        <b>Group ID : 
+         @item.GroupID </b>
+        
+    }
+</ul>
+<hr />
+<h3>Allocated Lecturers</h3>
+<b></b>
+<ul>
+   @if (!supervisor.Any())
+   {
+       <b style="color:red">Lecturers are not allocated for this Supervisor</b><br />
+    <button class="btn btn-facebook" type="submit"><i class="fa fa-user-plus"></i> <a href="@Url.Action( "Create", "Groups")" style="text-decoration:none;color:white">Allocate Lecturers</a></button>
+
+   }
+    @foreach(var item in supervisor)
+    {
+        if (i == 0)
+        {
+            <b>Supervisor : </b> <b style="color:darkseagreen">@item.Supervisors</b>
+        }
+        i++;
+        <li>Lecture @i : @item.Lecturers</li>
+    }
+</ul>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+</script>
+</head>
+<body>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Subscribe our Newsletter</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Subscribe to our mailing list to get the latest updates straight in your inbox.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Address">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="~/LecturePanel" class="btn btn-info btn-sm">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back
+    </a>

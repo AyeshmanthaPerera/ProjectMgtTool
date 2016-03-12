@@ -81,6 +81,7 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcMailer.4.5\lib\45\Mvc.Mailer.dll</HintPath>
       <Private>True</Private>
@@ -186,7 +187,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CalendarEvent.cs" />
-    <Compile Include="Controllers\AllocatedLecturersController.cs" />
+    <Compile Include="Content\AllocatedLecturersController.cs" />
     <Compile Include="Controllers\AuthorizeUserAcessLevel.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\Students1Controller.cs" />
     <Compile Include="Controllers\Students_moduleController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
+    <Compile Include="Controllers\ValidateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,13 +218,15 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\DB2.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\languageProficiency.cs" />
+    <Compile Include="Models\LanguageProficiency.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\LectureStatus.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\ModLec.cs" />
     <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\NotificationNew.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\RequestNew.cs" />
     <Compile Include="Models\SchedulerModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentGroupeList.cs" />
@@ -410,7 +414,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Lecturers\Create.cshtml" />
     <Content Include="Views\Lecturers\Delete.cshtml" />
@@ -447,7 +450,6 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Register\Extrnal.cshtml" />
     <Content Include="Views\Sweet\Alert.cshtml" />
     <Content Include="Views\Students_module\Create.cshtml" />
     <Content Include="Views\Students_module\Delete.cshtml" />
@@ -476,10 +478,15 @@
     <Content Include="Views\AllocatedLecturers\Edit.cshtml" />
     <Content Include="Views\AllocatedLecturers\Index.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Modules\AssignLecIC.cshtml" />
+    <Content Include="Views\Register\Pending.cshtml" />
+    <Content Include="Views\Projects\CreateExternal.cshtml" />
+    <Content Include="Views\Register\Forgot1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Mail\" />
+    <Folder Include="Views\Validate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

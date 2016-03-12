@@ -10,7 +10,7 @@ namespace SEP.Models
     {
         [Key]
         public string ModuleId { get; set; }
-        public string RegistratioNo{ get; set; }
+        public string RegistratioNo { get; set; }
         public string Status { get; set; }
     }
 }

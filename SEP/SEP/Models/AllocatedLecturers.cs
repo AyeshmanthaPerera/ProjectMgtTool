@@ -15,8 +15,7 @@ namespace SEP.Models
 
         [Display(Name = "Supervisor")]
         public string Supervisors { get; set;}
-        public IEnumerable <SelectListItem> Supervisor { get; set; }
-
+     
         [Display(Name = "Lecturer")]
         public string Lecturers { get; set;}
         public IEnumerable<SelectListItem> Lecturer { get; set; }

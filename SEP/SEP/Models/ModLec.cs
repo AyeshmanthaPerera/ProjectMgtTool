@@ -10,7 +10,7 @@ namespace SEP.Models
     {
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
-     //   public LectureStatus LecturerStatus { get; set; }
+        //   public LectureStatus LecturerStatus { get; set; }
 
 
     }

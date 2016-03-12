@@ -1,13 +1,65 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@section scripts
-{
-    <script src="@Url.Content("~/Scripts/Reg.js")"></script>
-}
- 
+@*@section scripts
+    {
+        <script src="@Url.Content("~/Scripts/Reg.js")"></script>
+    }*@
+<link href="@Url.Content("~/Content/css/zabuto_calendar.css")" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+<link href="@Url.Content("~/Content/css/style-responsive.css")" rel="stylesheet">
+<body id="IndBod" onload="changeHashOnLoad();">
+    <section id="container">
 
-<div>
-    <p id="Ak_para">AAAAA</p>
-    <input type="button" id="we1"/>
-</div>
+        <div class="col-lg-3 ds Request1 " style="overflow:auto; max-height:500px;">
+            <!--COMPLETED ACTIONS DONUTS CHART-->
+            <h3>Requests</h3>
+
+
+
+
+
+        </div><!-- /col-lg-3 -->
+
+    </section>
+</body>
+@{
+    <script src="~/Scripts/js/zabuto_calendar.js"></script>
+}
+
+<script type="text/javascript">
+    function changeHashOnLoad() {
+        console.log("Enwa Enwa Enwa Kattiya Enwa hee lol");
+        window.location.href += "#";
+        setTimeout("changeHashAgain()", "50");
+
+
+        $.ajax({
+            url: '/Dropdwn/UpdateReq',
+            data: "",
+            type: "POST",
+            dataType: "json",
+            success: function () {
+
+
+            },
+            error: function () {
+
+            }
+
+        });
+    }
+
+    function changeHashAgain() {
+        window.location.href += "1";
+    }
+
+    var storedHash = window.location.hash;
+    window.setInterval(function () {
+        if (window.location.hash != storedHash) {
+            window.location.hash = storedHash;
+        }
+    }, 50);
+
+</script>

@@ -13,15 +13,15 @@ namespace SEP.Controllers
         DB2 Current = new DB2();
         public string UserRole { get; set; }
 
-        
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var isAuthorized = base.AuthorizeCore(httpContext);
-            if (!isAuthorized)
-            {
+            //var isAuthorized = base.AuthorizeCore(httpContext);
+            //if (!isAuthorized)
+            //{
 
-                return false;
-            }
+            //    return false;
+            //}
 
             string CurrentUserRole = (string)HttpContext.Current.Session["Position"];
             if (this.UserRole.Contains(CurrentUserRole))

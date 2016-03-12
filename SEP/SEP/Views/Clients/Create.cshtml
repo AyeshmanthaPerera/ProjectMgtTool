@@ -7,53 +7,113 @@
 <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
 
-<h2>Create</h2>
+<link rel="stylesheet" href="@Url.Content("http://fonts.googleapis.com/css?family=Roboto:400,100,300,500")">
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/bootstrap/css/bootstrap.min.css")">
+<link href="@Url.Content("~/Content/font-awesome/css/font-awesome.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/css/form-elements.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/css/style.css")">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Client</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Company, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Company, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="@Url.Content("~/Content/AssetRegister/assets/ico/favicon.png")">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-144-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-114-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-72-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-57-precomposed.png")">
+
+
+<div>
+    <div class="container">
+        <div class="row" style="margin-top:40px">
+            <div class="col-sm-7 text">
+                <br /><br /><br /><br />
+                <div class="description">
+                    <img src="@Url.Content("~/Content/Images/client.png")" />
+                </div>
             </div>
-        </div>
+            <div class="col-sm-5 form-box">
+                <div class="form-top">
+                    <div class="form-top-left">
+                        <h3>Sign up now</h3>
+                        <p>Fill in the form below to get instant access:</p>
+                    </div>
+                    <div class="form-top-right">
+                        <i class="fa fa-pencil"></i>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-bottom" style="align">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-horizontal">
+                            <h4>Client</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Company, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Company, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+@{
+
+    <script src="~/Content/AssetRegister/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/js/jquery.backstretch.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/js/retina-1.1.0.min.js"></script>
+        <script src="~/Content/AssetRegister/assets/js/scripts.js"></script>
+        <script type="text/javascript" src="~/Scripts/js/jquery.backstretch.min.js"></script>
+        <script>
+            $.backstretch("@Url.Content("~/Content/login-bg.jpg")", { speed: 500 });
+        </script>
+
 }
 

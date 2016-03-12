@@ -5,19 +5,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace SEP.Controllers
 {
     public class HomeController : Controller
     {
-       // [AuthorizeUserAcessLevel(UserRole ="Admin")]
+        [AuthorizeUserAcessLevel(Roles = "Lecturer,student,HOD", UserRole = "student,HOD,Lecturer")]
         public ActionResult Index()
         {
-            string g = (string)Session["UserName"];
-            Debug.Write(g);
+           
             return View();
 
-             
+
         }
         //[AuthorizeUserAcessLevel(UserRole ="Manager")]
         public ActionResult About()

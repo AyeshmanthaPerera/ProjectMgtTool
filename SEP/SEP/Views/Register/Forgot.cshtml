@@ -3,51 +3,28 @@
     ViewBag.Title = "Forgot";
     Layout = null;
 }
+<!-- Bootstrap core CSS -->
 <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet">
 
+<!--external css-->
 <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/font-awesome-4.5.0/css/font-awesome.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/gritter/css/jquery.gritter.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/lineicons/style.css")" rel="stylesheet" type="text/css" />
+
+<!-- Custom styles for this template -->
 <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
 <link href="@Url.Content("~/Content/css/style-responsive.css")" rel="stylesheet">
-@*<link href="@Url.Content("~/Content/LoginStyle.css")" rel="stylesheet" type="text/css" />
 
-<div class="login-wrap">
-    <h2>Forgot</h2>
-    <br/><br/>
-   <form action="/Register/Forgot" method="post" autocomplete="off">
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                Email :  <input type="text" name="Email" placeholder="E-mail" data-toggle="tooltip" data-placement="bottom" title="Please provide the e-mail address u provide us in Registration" />
-            </div>
-        </div>
-        <br/>
-        <br />
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-
-                <input type="submit" value="Send Code" class="btn btn-default" id="ak_log" />
-            </div>
-        </div>
-      </form>
-
-        </div>*@
-//
 
 
 <body onload="getTime()">
 
     <!-- **********************************************************************************************************************************************************
-    MAIN CONTENT
+      MAIN CONTENT
     *********************************************************************************************************************************************************** -->
 
     <div class="container">
-
         <div id="showtime"></div>
         <div class="col-lg-4 col-lg-offset-4">
             <div class="lock-screen">
@@ -57,7 +34,6 @@
                 <!-- Modal -->
 
                 <form class="form-login" action="@Url.Action("Login","Register", new {Email=Session["Email"]})" method="post">
-
                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -65,69 +41,56 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 class="modal-title">Welcome Back</h4>
                                 </div>
-
-
                                 <div class="modal-body">
                                     <p class="centered"><img class="img-circle" width="80" src="@Url.Content((string)@Session["Avatar"])"></p>
                                     <input type="password" name="id" placeholder="Password" autocomplete="off" class="form-control placeholder-no-fix">
-
                                 </div>
                                 <div class="modal-footer centered">
                                     <button data-dismiss="modal" class="btn btn-theme04" type="button">Cancel</button>
                                     <button class="btn btn-theme03" type="submit">Login</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </form>
                 <!-- modal -->
-
-
-            </div><! --/lock-screen -->
+            </div><!--/lock-screen -->
         </div><!-- /col-lg-4 -->
-
     </div><!-- /container -->
-    //
-    </body>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @{
 
-        <script src="~/Scripts/js/jquery.js"></script>
+</body>
+
+<!--Render Jquery Scripts-->
+@Scripts.Render("~/bundles/jquery")
+<!--Render bootstrap Scripts-->
+@Scripts.Render("~/bundles/bootstrap")
+@{
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/Scripts/js/jquery.js"></script>
         <script src="~/Scripts/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="~/Scripts/js/jquery.backstretch.min.js"></script>
         <script>
-        $.backstretch("@Url.Content("~/Content/login-bg.jpg")", { speed: 500 });
+            $.backstretch("@Url.Content("~/Content/login-bg.jpg")", { speed: 500 });
         </script>
         <script>
-        function getTime()
-        {
-            var today = new Date();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            // add a zero in front of numbers<10
-            m = checkTime(m);
-            s = checkTime(s);
-            document.getElementById('showtime').innerHTML = h + ":" + m + ":" + s;
-            t = setTimeout(function(){ getTime()},500);
-        }
-
-        function checkTime(i)
-        {
-            if (i < 10)
-            {
-                i = "0" + i;
+            function getTime() {
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                // add a zero in front of numbers<10
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('showtime').innerHTML = h + ":" + m + ":" + s;
+                t = setTimeout(function () { getTime() }, 500);
             }
-            return i;
-        }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
         </script>
-        @*<script src="~/Scripts/Reg.js"></script>
-        <script>
 
-       
-
-        </script>*@
-
-    }
+}

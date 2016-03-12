@@ -15,9 +15,9 @@ namespace SEP.Controllers
             return View();
         }
 
-        public ActionResult Sendin(string Email1 , string Id1,string client1)
+        public ActionResult Sendin(string Email1, string Id1, string client1)
         {
-            
+
             Aspose.Email.Mail.SmtpClient client = new Aspose.Email.Mail.SmtpClient();
             client.Host = "smtp.gmail.com";
             client.Username = "akayeshmantha@gmail.com";
@@ -28,18 +28,18 @@ namespace SEP.Controllers
             message.From = new Aspose.Email.Mail.MailAddress("akayeshmantha@gmail.com");
             message.To.Add(new Aspose.Email.Mail.MailAddress("akayeshmantha@gmail.com"));
             message.Priority = Aspose.Email.Mail.MailPriority.High;
-            
-            int ids = 0;
+
+            int ids = MvcApplication.Pr_one;
             if (int.TryParse(Id1, out ids))
             {
-                if (ids == -1)
+                if (ids == MvcApplication.Pr_minusone)
                 {
                     message.Subject = "U are a registered client Please add projects to the tool";
-                   // message.HtmlBody = "<a href='http://localhost:55814/Projects/Create'>Go to register </a>";
-                    message.HtmlBody=("<a href='http://localhost:55814/Projects/Create?client="+client1+"'>Go to register </a>");
-                    Debug.Write("aissaaa"+message.HtmlBody);
+                    // message.HtmlBody = "<a href='http://localhost:55814/Projects/Create'>Go to register </a>";
+                    message.HtmlBody = ("<a href='http://localhost:55814/Projects/CreateExternal?client=" + client1 + "'>Go to register </a>");
+                    Debug.Write("aissaaa" + message.HtmlBody);
                 }
-                else if (ids == 0)
+                else if (ids == MvcApplication.Pr_Zero)
                 {
                     message.Subject = "U have not registered to the tool pelase register first to add Projects to the tool";
                     message.HtmlBody = "<a href='http://localhost:55814/Clients/Create'> Go to register </a>";
@@ -52,10 +52,19 @@ namespace SEP.Controllers
                 message.Body = "Your Registration No" + Id1;
 
             }
+            try
+            {
 
-            client.Send(message);
+                client.Send(message);
+                TempData["Success"] = "We Sent A Mail successfully";
 
-            return RedirectToAction("Login","Register");
+            }
+            catch (Exception)
+            {
+
+                TempData["ErrorMail"] = "Sorry we were Unable to Send the E-mail";
+            }
+            return RedirectToAction("Login", "Register");
         }
     }
 }

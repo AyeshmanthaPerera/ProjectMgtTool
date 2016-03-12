@@ -2,9 +2,6 @@
 <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-
-
-
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/datatable.min.js"></script>
 <link href="~/Content/datatable.min.css" rel="stylesheet" />
@@ -16,24 +13,58 @@
     });
 </script>
 
-<h2>Allocated Lecturers</h2>
+@if ((bool)Session["LecIN"])
+{
+<div class="container">
+    <nav role="navigation" class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">Lecture In Charge</a>
+        </div>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="~/Groups">Allocate Supervisors</a></li>
+                <li class="active"><a href="~/AllocatedLecturers">Create a Lecture Panel</a></li>
+                <li><a href="~/LecturePanel">Overview of Lecture Panels</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">View<b class="caret"></b></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="~/Students1">Student CVs</a></li>
+                        <li><a href="~/Lecturers">Lecturer Details</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+</div>
+<b>Allocated Lecturers</b>
 <hr />
+
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+
 <p>
-    <a href="~/Groups/Index" class="btn btn-info btn-sm">
-        <span class="glyphicon glyphicon-arrow-left"></span> Back
-    </a>
+    
     <a class="btn btn-primary btn-sm" href="~/AllocatedLecturers/Create" role="button">Create a Lecture panel</a>
 
 </p>
 
 <p>
-    @using (Html.BeginForm("index", "AllocatedLecturers", FormMethod.Get))
+    @using (Html.BeginForm("index", "AllocatedLecturers", FormMethod.Post))
     {
         <b style="color:darkgreen">Search By</b> <br />
         <b>Allocated Supervisors</b>
-        @Html.TextBox("Search",null,new{id="txtSearch"})
+        @Html.TextBox("Search", null, new { id = "txtSearch" })
          <input type="submit" value="Search" />
     }
 </p>
@@ -47,22 +78,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
        
         <td>
             @Html.DisplayFor(modelItem => item.Lecturers)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
         </td>
     </tr>
 }
 
 </table>
-
+}
 <script type="text/javascript">
     $('#example')
         .removeClass('display')

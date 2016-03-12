@@ -15,10 +15,13 @@ namespace SEP.Controllers
         private DB2 db = new DB2();
 
         // GET: Projects
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
         public ActionResult Index(string searchString)
         {
-
             var names = from m in db.Projects
                         select m;
 
@@ -33,6 +36,11 @@ namespace SEP.Controllers
         }
 
             // GET: Projects/Details/5
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="id"></param>
+            /// <returns></returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,16 +55,25 @@ namespace SEP.Controllers
             return View(project);
         }
 
+        public ActionResult CreateExternal() {
+
+            ViewBag.ModuleName = db.Modules;
+            TempData["ProjectCreate"] = null;
+            return View();
+        }
+
         // GET: Projects/Create
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
-            //ViewBag.ModuleName = db.Modules.Select(c => new SelectListItem
-            //{
-            //    Value = c.ModuleId,
-            //    Text = c.ModuleId
-
-            //}).ToList();
             ViewBag.ModuleName = db.Modules;
+            if ((string)Session["Position"] == "Lecturer") {
+                ViewBag.Client = (string)Session["UserName"];
+            }
+            TempData["ProjectCreate"] = null;
 
             return View();
         }
@@ -64,21 +81,54 @@ namespace SEP.Controllers
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectId,ModuleId,Name,Description,Client,PreferedTechnologies")] Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(project);
+                try
+                {
+                   
+                    ViewBag.ModuleName = db.Modules;
+                    db.Projects.Add(project);
+                    db.SaveChanges();
+                   
+                    if (Session["UserName"] == null)
+                    {
+                        return RedirectToAction("Login", "Register");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch
+                {
+                    
+                    return View(project);
+                }          
+            } else {
+                if ((string)Session["Position"] == "Lecturer")
+                {
+                    ViewBag.Client = (string)Session["UserName"];
+                }
+                ViewBag.ModuleName = db.Modules;
+                return View(project);
+                }
         }
 
         // GET: Projects/Edit/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,20 +148,43 @@ namespace SEP.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProjectId,ModuleId,Name,Description,Client,PreferedTechnologies")] Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+             try
+                {
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ModuleName = db.Modules;
+                    return View("error",new HandleErrorInfo(e,"Projects","Edit"));
+                    throw e;
+                }                       
             }
-            return View(project);
+            else
+            {
+                return View(project);
+            }
+
         }
 
         // GET: Projects/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +200,11 @@ namespace SEP.Controllers
         }
 
         // POST: Projects/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

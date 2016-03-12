@@ -5,13 +5,15 @@
 }
 
 
-    <hr />
-    <div class="col-lg-12">
-        <input type="button" value="Add New Module" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Modules")'" />
-    </div>
-    <hr />
+<hr/>
 
-  @*@Html.DropDownList("search", ViewData["search"] as SelectList, new { @class = "form-control" })*@
+<div class="col-lg-12">
+    <input type="button" value="Add New Module" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Modules")'" />
+</div>
+
+<hr/>
+
+@*@Html.DropDownList("search", ViewData["search"] as SelectList, new { @class = "form-control" })*@
 
 @using (Html.BeginForm())
 {
@@ -19,7 +21,7 @@
     <div class="col-md-8">
         Search Module
         @Html.TextBox("SearchString")
-  
+
         <button type="submit" class="btn btn-info">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
@@ -27,78 +29,112 @@
         <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("ViewAll", "Modules")'">
             <span class="glyphicon glyphicon-refresh"></span> Refresh
         </button>
-            
+
     </div>
 
-    }
-    <hr/>
+}
+<br/>
 <br/>
 
-    <table class="table table-hover">
-        <tr class="active">
-            <th>
-                @Html.DisplayNameFor(model => model.ModuleId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.semester)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LecturerIncharge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxCount)
-            </th>
-    
-            <th></th>
-        </tr>
+<table class="table table-hover">
+    <tr class="active">
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.semester)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LecturerIncharge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxLecPanel)
+        </th>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModuleId)
-                </td>
+        <th></th>
+    </tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleId)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.semester)
-                </td>
-                <td>
-                    @if (item.LecturerIncharge == null)
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.semester)
+            </td>
+            <td>
+                @if (item.LecturerIncharge == null)
                 {
-                        @Html.Raw("N/A")
+                    @Html.Raw("N/A")
 
-                    }
+                }
 
 
-                    @Html.DisplayFor(modelItem => item.LecturerIncharge)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaxCount)
-                </td>
-             
+                @Html.DisplayFor(modelItem => item.LecturerIncharge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxLecPanel)
+            </td>
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ModuleId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ModuleId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ModuleId })
-                </td>
-            </tr>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ModuleId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ModuleId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ModuleId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+@{
+    <script src="~/Scripts/js/jquery.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+
+    <script>
+        console.log("grrrrrrrrrrr");
+
+        @if(TempData["Msg1"] != null)
+        {<text>
+        console.log("AAAAssssssss");
+        $(window).load(function () {
+            $(document).ready(function () {
+                swal({
+                    title: "Message!",
+                    text: "@TempData["Msg1"]",
+                    type: "warning"
+                });
+
+                TempData["Msg1"].text = null;
+            });
+        });
+
+
+        </text>
         }
-
-    </table>
-
-
-
+    </script>
+}

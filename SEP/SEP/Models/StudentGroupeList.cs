@@ -12,5 +12,6 @@ namespace SEP.Models
         public string StuId { get; set; }
         public string Module { get; set; }
         public string GroupNo { get; set; }
+        public int status { get; set; }
     }
 }

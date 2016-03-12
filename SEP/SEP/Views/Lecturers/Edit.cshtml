@@ -1,4 +1,4 @@
-﻿  @model SEP.Models.Lecturer
+﻿@model SEP.Models.Lecturer
 
 @{
     ViewBag.Title = "Edit";
@@ -6,10 +6,10 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Lecturers", new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Lecturers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "registration-form" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Lecturer</h4>
         <hr />
@@ -49,18 +49,12 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <label class="control-label col-md-2" for="Avatar">Avatar</label>
             <div class="col-md-10">
                 <input class="form-control text-box single-line" id="Avatar" name="Avatar" type="file" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="Avatar" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                <p style="color:firebrick">@TempData["error"]</p>
+
             </div>
         </div>
 

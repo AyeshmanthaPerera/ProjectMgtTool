@@ -13,17 +13,12 @@ namespace SEP.Controllers
         // GET: LecMod
         public ActionResult Index()
         {
-            //var q = (from m in db.Modules
-            //         join l in db.Lecturers on m.Description equals l.Module
-            //         join ls in db.Lec_Statuses on l.LecturerId equals ls.LectureId
-            //        where ls.Position != "Lecturer"
-            //         select new ModLec { Lecturer =l, Module=m, LecturerStatus=ls });
-
+         
             var q = (from m in db.Modules
                      join l in db.Lecturers on m.ModuleId equals l.Module
-                   //  join ls in db.Lec_Statuses on l.LecturerId equals ls.LectureId
+                     //  join ls in db.Lec_Statuses on l.LecturerId equals ls.LectureId
                      where m.LecturerIncharge != null
-                     select new ModLec { Lecturer = l, Module = m});
+                     select new ModLec { Lecturer = l, Module = m });
 
             return View(q);
         }
@@ -37,7 +32,7 @@ namespace SEP.Controllers
                      where m.LecturerIncharge != null
                      select new ModLec { Lecturer = l, Module = m });
 
-            return View("Index",q);
+            return View("Index", q);
         }
 
 

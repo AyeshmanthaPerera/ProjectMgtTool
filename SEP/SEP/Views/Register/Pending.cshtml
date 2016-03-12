@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Pending";
+    Layout = null;
+}
+
+<h2>Pending</h2>
+@{ 
+    <script>
+         @if (TempData["Pending"] != null)
+         {<text>
+         $(window).load(function () {
+             $(document).ready(function () {
+                 swal({
+                     title: "Message",
+                     text: "@TempData["Pending"]",
+                     type: "warning"
+             });
+
+         });
+         });
+        </text>}
+    </script>
+
+
+}

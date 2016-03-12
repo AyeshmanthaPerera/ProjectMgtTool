@@ -4,80 +4,181 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
+
+<link rel="stylesheet" href="@Url.Content("http://fonts.googleapis.com/css?family=Roboto:400,100,300,500")">
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/bootstrap/css/bootstrap.min.css")">
+<link href="@Url.Content("~/Content/font-awesome/css/font-awesome.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/css/form-elements.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/AssetRegister/assets/css/style.css")">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="@Url.Content("~/Content/AssetRegister/assets/ico/favicon.png")">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-144-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-114-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-72-precomposed.png")">
+<link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/AssetRegister/assets/ico/apple-touch-icon-57-precomposed.png")">
+
+<!-- Custom styles for this template -->
 <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+<!-- Bootstrap core CSS -->
 <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
 
-<h2>Register</h2>
 
-@using (Html.BeginForm( "Create","Students1",FormMethod.Post, new {enctype ="multipart/form-data" }))
-{
-   
-    
-    <div class="form-horizontal">
-        <h4>Student</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RegistrationNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RegistrationNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RegistrationNo, "", new { @class = "text-danger" })
-            </div>
+<body onload="changeHashOnLoad();">
+    <div>
+        <div class="top-menu" style="margin-right:1232px">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" id="logout1" href="@Url.Action("Login","Register")">Back to Login</a></li>
+            </ul>
         </div>
+        <div class="container">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="row" style="margin-top:40px">
+                <div class="col-sm-7 text">
+                    <br /><br /><br /><br />
+                    <div class="description">
+                        <img src="@Url.Content("~/Content/Images/student12.png")" />
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="col-sm-5 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Sign up now</h3>
+                            <p>Fill in the form below to get instant access:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CGPA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CGPA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CGPA, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-bottom">
+                        @using (Html.BeginForm("Create", "Students1", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="form-horizontal">
+                                <h2>Register As Student</h2>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.RegistrationNo, htmlAttributes: new { @class = "control-label col-md-2" })
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Avatar">Avatar</label>
-            <div class="col-md-8">
-                <input class="form-control text-box single-line" id="Avatar" name="Avatar" type="file" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="Avatar" data-valmsg-replace="true"></span>
-            </div>
-           
-        </div>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.RegistrationNo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.RegistrationNo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div style="margin-right:100px">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-md-10" style="margin-left:16px">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div style="margin-right:100px">
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-md-10" style="margin-left:16px">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="CV">CV</label>
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="CV" name="CV" type="file" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="CV" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div style="margin-right:100px">
+                                        @Html.LabelFor(model => model.CGPA, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-md-10" style="margin-left:16px">
+                                        @Html.EditorFor(model => model.CGPA, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CGPA, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div style="margin-right:100px">
+                                        <label class="control-label col-md-2" for="Avatar">Avatar</label>
+                                    </div>
+                                    <div class="col-md-8" style="margin-left:16px">
+                                        <input class="form-control text-box single-line" id="Avatar" name="Avatar" type="file" value="" />
+                                        @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                                        <p style="color:firebrick">@TempData["Ava"]</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div style="margin-right:140px">
+                                        <label class="control-label col-md-2" for="CV">CV</label>
+                                    </div>
+                                    <div class="col-md-10" style="margin-left:22px">
+                                        <input class="form-control text-box single-line" id="CV" name="CV" type="file" value="" />
+                                        @Html.ValidationMessageFor(model => model.CV, "", new { @class = "text-danger" })
+                                        <p style="color:firebrick">@TempData["error"]</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+</body>
+
+@{
+
+    <script src="~/Content/AssetRegister/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/js/jquery.backstretch.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/js/retina-1.1.0.min.js"></script>
+    <script src="~/Content/AssetRegister/assets/js/scripts.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("@Url.Content("~/Content/login-bg.jpg")", { speed: 500 });
+
+        function changeHashOnLoad() {
+            console.log("Enwa Enwa Enwa Kattiya Enwa hee lol");
+            window.location.href += "#";
+            setTimeout("changeHashAgain()", "50");
+        }
+
+        function changeHashAgain() {
+            window.location.href += "1";
+        }
+
+        var storedHash = window.location.hash;
+        window.setInterval(function () {
+            if (window.location.hash != storedHash) {
+                window.location.hash = storedHash;
+            }
+        }, 50);
+
+
+    </script>
+
 }
+
 

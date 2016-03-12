@@ -6,49 +6,73 @@
 <html>
 <head>
     <title>Calendar</title>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script>
 
-                $(document).ready(function () {
-                    $("#flip").click(function () {
-                        $("#panel").slideToggle("slow");
-                    });
-                });
-    </script>
+    <h5>@ViewBag.StMsg</h5>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
    
 
-        <style>
-            #panel, #flip {
-                width: 350px;
-                padding: 5px;
-                text-align: center;
-                background-color: #529bc4;
-                border: solid 1px #c3c3c3;
-            }
+    <style>
+        #panel, #flip {
+            width: 350px;
+            padding: 5px;
+            text-align: center;
+            background-color: #529bc4;
+            border: solid 1px #c3c3c3;
+        }
 
-            #panel {
-                padding: 50px;
-                display: none;
-            }
-        </style>
+        #panel {
+            padding: 50px;
+            display: none;
+        }
+    </style>
 
-        <style>
-            body {
-                background-color: #fffbd3;
-            }
-        </style>
+    <style>
+        body {
+            background-color: #fffbd3;
+        }
+    </style>
+
+    @{
+        <script src="~/Scripts/js/jquery.js"></script>
+        <script src="~/Scripts/js/bootstrap.min.js"></script>
+        <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+
+        <script>
+
+            @if(TempData["MsgDlt"] != null)
+        {<text>
+            
+            $(window).load(function () {
+                $(document).ready(function () {
+                    swal({
+                        title: "Warning!",
+                        text: "@TempData["MsgDlt"]",
+                        type: "warning"
+                    });
+
+                    TempData["MsgDlt"].text = null;
+                });
+            });
+
+
+            </text>
+        }
+        </script>
+    }
+    
+  
 </head>
 
 <body>
-  
-    <br/>
-    <h3>Lecturer ID: </h3>
 
-    <div id="flip">Click to View New Appoinments</div> 
-    <div id="panel">Currently No New Appoinments</div>
+    <br />
+    @*<h3>Lecturer ID: </h3>
+
+        <div id="flip">Click to View New Appoinments</div>
+        <div id="panel">Currently No New Appoinments</div>*@
     <div style="height:700px;width:900px;margin:0 auto">
         @Html.Raw(Model.Render())
     </div>
-    
+
 </body>
 </html>

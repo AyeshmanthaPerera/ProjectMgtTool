@@ -14,6 +14,10 @@ namespace SEP.Models
         {
 
         }
+
+        public DbSet<RequestNew> RequestsNew { get; set; }
+        public DbSet<NotificationNew> NotificationsNew { get; set; }
+
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Student> Students { get; set; }
 
@@ -29,13 +33,12 @@ namespace SEP.Models
 
         public DbSet<StudentGroupeList> StudentGroupeLists { get; set; }
 
-        public DbSet<languageProficiency> languageProficiencies { get; set; }
+        public DbSet<LanguageProficiency> LanguageProficiencies { get; set; }
         public DbSet<Event> Event { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
-
         public System.Data.Entity.DbSet<SEP.Models.Group> Groups { get; set; }
         public System.Data.Entity.DbSet<SEP.Models.AllocatedLecturers> AllocatedLecturers { get; set; }
 

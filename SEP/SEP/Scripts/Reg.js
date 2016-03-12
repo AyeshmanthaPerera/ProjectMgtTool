@@ -159,7 +159,7 @@ $(document).ready(function () {
                 console.log("Aiyooo");
                for (var i = 0 ; i < text ; i++) {
                         var p = data.data[i]+" ";
-                        var t = p.split("Student");
+                        var t = p.split("Lecturer");
                         console.log(t[0]);
                    $("<div class='desc' id ='ak2'> <div class='thumb'><i><span class='photo'><img alt='avatar' src=" + data.data2[i] + " width='30px' height='30px' ></span></i></div><div class='details'> <p><muted>" + data.data3[i] + "</muted><br /> <span style='font-size:11px'><a href='#' id='sp2'>" + t[0] + "</a>" + t[1] + "</span><br /><input type='button' class='btn btn-default btn-xs' value ='Confirm' id='cnf1'/><input type='button' class='btn btn-default btn-xs' value ='Decline' id='cnf1'/></p></div></div>")
                    .appendTo('.Request1');

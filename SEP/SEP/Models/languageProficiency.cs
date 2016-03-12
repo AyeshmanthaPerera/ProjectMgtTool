@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SEP.Models
 {
-    public class languageProficiency
+    public class LanguageProficiency
     {
         [Key]
         public string RegistrationNum { get; set; }

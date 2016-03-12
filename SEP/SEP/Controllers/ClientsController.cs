@@ -52,7 +52,7 @@ namespace SEP.Controllers
             {
                 db.Clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Create","Projects",new { client =client.Name});
+                return RedirectToAction("CreateExternal", "Projects", new { client = client.Name });
             }
 
             return View(client);
@@ -86,7 +86,10 @@ namespace SEP.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            else
+            {
+                return View(client);
+            }
         }
 
         // GET: Clients/Delete/5

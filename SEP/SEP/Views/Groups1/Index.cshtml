@@ -2,10 +2,92 @@
 
 @{
     ViewBag.Title = "Error";
+    string ErrorText = "";
+
+    string nullvalue = (string)TempData["null"];
+    string letnum = (string)TempData["letnum)"];
+    string length = (string)TempData["len"];
+    string exists = (string)TempData["exist)"];
+    string NoMore = (string)TempData["NoMore"];
+
+    if (nullvalue != null) {
+        if (nullvalue.Equals("null"))
+        {
+            ErrorText = "Please fill the group ID field (Required)";
+        }
+
+    }
+    if (letnum != null)
+    {
+        if (letnum.Equals("letnum"))
+        {
+            ErrorText = "Please use only Letters and numbers (Other Symbols are not allowed)";
+        }
+    }
+    if (length != null)
+    {
+        if (length.Equals("between"))
+        {
+            ErrorText = "Length of the Group Id should between 2 and 3";
+        }
+    }
+    if (exists != null)
+    {
+        if (exists.Equals("exist"))
+        {
+            ErrorText = "Already Exists.Please try a new project ID";
+        }
+    }
+    if (NoMore != null)
+    {
+        if (NoMore.Equals("NoMore"))
+        {
+            ErrorText = "Your have already added a supervisor for this projectID";
+        }
+    }
 }
 
-<h2 style="color:red">You Have Already Added this Group ID.Please try a new GroupID</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-<a href="~/Groups/Create" class="btn btn-info btn-sm">
-    <span class="glyphicon glyphicon-arrow-left"></span> Add a New GroupID
-</a>
+    <div class="container">
+       
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div style="padding:10px" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Error Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <b style="color:red;font-size:16px">@ErrorText</b>
+                        <b style="font-size:16px">.Please try a new group ID</b>
+                    </div>
+
+                    <a href="~/Groups/Create" class="btn btn-info btn-sm">
+                         Add a New GroupID
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $('#myModal').modal({ backdrop: 'static', keyboard: false })
+
+        $('.modal').modal('show');
+    </script>
+</body>
+</html>

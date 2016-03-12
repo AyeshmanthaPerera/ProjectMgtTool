@@ -7,12 +7,12 @@
 <h2>Students Enrolled</h2>
 
 @using (Ajax.BeginForm(
-                new AjaxOptions
-                {
-                    HttpMethod = "get",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "st_1"
-                }))
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "st_1"
+    }))
 {
     <div class="row mt form-inline" style="margin-left:2px">
        <div class="form-inline"> <input class="form-control" type="search" name="searchterm" id="exampleInputEmail2" />
@@ -66,10 +66,10 @@
                         </td>
 
                         <td>
-                            @*<button type="button" class="btn btn-default btn-sm">
+                            <button type="button" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-edit" aria-hidden='true'></span>
                                 <a href="@Url.Action("Edit",new { id=item.RegistrationNo })">Edit</a>
-                            </button>|*@
+                            </button>|
                             <button type="button" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span>
                                 <a href="@Url.Action("Details",new { id=item.RegistrationNo })">Details</a>
@@ -78,16 +78,15 @@
                                 <span class="glyphicon glyphicon-folder-close" aria-hidden='true'></span>
                                 <a href="@Url.Action("Delete",new { id=item.RegistrationNo })">Delete</a>
                             </button>
-                            @*@Html.ActionLink("Edit", "Edit", new { id=item.RegistrationNo }) |
-                                @Html.ActionLink("Details", "Details", new { id=item.RegistrationNo }) |
-                                @Html.ActionLink("Delete", "Delete", new { id=item.RegistrationNo })*@
                         </td>
                     </tr>
                 }
 
             </table>
         </div>
-        @section scripts{
-            @Scripts.Render("~/bundles/jqueryval")
-            @Scripts.Render("~/bundles/bootstrap")
-        }
+ @section scripts{
+<!--Render Jquery Scripts-->
+    @Scripts.Render("~/bundles/jqueryval")
+<!--Render bootstrap Scripts-->
+    @Scripts.Render("~/bundles/bootstrap")
+}

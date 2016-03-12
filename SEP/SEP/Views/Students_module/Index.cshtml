@@ -4,70 +4,72 @@
 }
 
 
-   <link href="@Url.Content("~/Content/Stu_module.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/Stu_module.css")" rel="stylesheet" type="text/css" />
+<body onload="p();">
 
     <div class="container">
         <h2>   Student List</h2>
         <div class="row">
+
+
+            <!--First column-->
             <div class="col-sm-3">
-                @*<div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Dropdown Example
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" id="myul">
-                        @foreach (var item in Model) {
-                            <li id="">@item.RegistrationNo</li>
-                           
-                        }
-                    </ul>
-                </div>*@
 
+                <!--div for opeartions related to search students function-->
                 <div id="serachBar">
-                    
-               
-                    @using (Ajax.BeginForm(
-new AjaxOptions
-{
-    HttpMethod = "get",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "sortedList"
-}))
-                    {
-                            <input type="search" name="searchTerm" id="txtsearch" />
-                            <button type="submit" id="searchbtn" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 
-                        //<button type="button" id="searchbtn" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
-                            <h4>Search By Name</h4> 
+                    <!--Simple form to get the search term from user and submit-->
+                    @using (Ajax.BeginForm(
+                    new AjaxOptions
+                    {
+                        HttpMethod = "get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "sortedList"
+                    }))
+                    {
+                        <input type="search" name="searchTerm" id="txtsearch" />
+                        <button type="submit" id="btnsearch" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+
+                        <h4>Search By Name</h4>
                     }
                     <br />
 
-                    <div id="sortedList" style="overflow:auto; max-height:300px;">
+                    <!--Div refresh along each search call-->
+                    <div id="sortedList">
 
                         <ul class="list-group" id="ev1">
                             @foreach (var item in Model)
                             {
-                               <li class="list-group-item "> <a id="linkOnList">@item.Name</a></li>
+                                <li class="list-group-item "> <a id="linkOnList">@item.Name</a></li>
                             }
                         </ul>
 
                     </div>
                 </div>
-            
+
             </div>
-           
+
+
+            <!--Second column-->
             <div class="col-sm-6">
-                
-                    <div class="row" id="proName">
-                        Student Details
-                    </div>
-                    <div class="row" id="imgBox">
-                        <img id="kkkk" style="height:150px;width:150px;float:right;"/>
-                    </div>
-                <br />
-                <br />
-                <label id="lReg" style="margin-bottom:5px;margin-top:5px;width:200px; display:none;"></label>
-                    
+
+                <div class="row" id="proName">
+                    Student Details
+                </div>
+
+                <!--div to hold the profile picture of the students-->
+                <div class="row" id="imgBox">
+                    <img id="innerImg" />
+                </div>
+
+                <br /><br />
+
+                <!--Hidden lables to hold values-->
+                <label id="lReg"></label>
+                <label id="sessionModule" style="display:none;">SEP</label>
+
+
+                <!--table to display the summary of each selected student-->
                 <table class="table table-striped" id="detailsTbl">
                     <tr>
                         <td>Name</td>
@@ -85,72 +87,93 @@ new AjaxOptions
                         <td>Email</td>
                         <td id="temail"></td>
                     </tr>
-                    
-                </table>
-@* method to display the chart*@
-                   
 
-                @*Method to view the chart*@ 
+                </table>
+
+                <!--Chart to display the technology proficiencies of selected student-->
                 <div id="chartView">
-                    <img src="@Url.Action("DrawChart")" alt="Drawing chart with HTML Helper" />
+                    @*<img src="@Url.Action("DrawChart")" alt="Drawing chart with HTML Helper" />*@
                 </div>
-                
+
             </div>
 
+
+
+            <!--Third column-->
             <div class="col-sm-3">
-                <br /><br /><br /><br /><br />
+                <!--Button to create a new group by loged in user-->
+                <input type="button" id="btnCreate" value="Create my Group" /><br />
+
+                <br /><br /><br /><br />
+
+                <!--First sub colunm-->
+
+                <!--div to add members to the created group-->
                 <div class="col-sm-2" id="addGrp">
                     Add to Group<br />
-                    @*<span class="glyphicon glyphicon-user" style="resize: both;"></span>*@
-                    <img src="~/Content/ImagesK/add.png" />
+                    <img src="~/Content/Images2/add.png" />
                 </div>
-                <div class="col-sm-2" id="creategrp">
-                    Create a Group<br />
-                    @*<span class="glyphicon glyphicon-user" style="resize: both;"></span>*@
-                    
-                </div>
-                <label id="myReg" style="display: none;">IT14112706</label>
-                @*<input type="submit" id="btnAddGrp" value="Add to Group" /><br /><br />
-                No of students currently in your group: <label id="txtstuCount" width="20" ></label>*@
-                
-                <br /><br /><br /><br /><br /><br />
-                
-                <input type="button" id="btnView" value="View My Group" /><br/>
-                <table id="Grptable" border="1" style="visibility:hidden;">
+
+                <!--Label -->
+                <label id="myReg" style="display: none;">@Session["id"]</label>
+
+                <br /><br /><br /><br /><br /><br /><br /><br />
+
+                <!--Table to hold the details of the group-->
+                <table id="Grptable" class="table table-condensed">
                     <tr>
+                        <th>Avatar</th>
                         <th>Name</th>
-                        <th>Registration No</th>
-                        <th>Contact Number</th>
+                        <th>Status</th>
                     </tr>
-                    <tr>
-                        <td id="m1Name"></td>
-                        <td id="m1Reg"></td>
-                        <td id="m1Phone"></td>
-                    </tr>
-                    <tr>
-                        <td id="m2Name"></td>
-                        <td id="m2Reg"></td>
-                        <td id="m2Phone"></td>                                                      
-                    </tr>
-                    <tr>
-                        <td id="m1Name"></td>
-                        <td id="m1Reg"></td>
-                        <td id="m1Phone"></td>
-                    </tr>
+
+
                 </table>
-                
-                
-            </div> 
+
+            </div>
         </div>
-       </div>
-@section scripts
-{
-    <script src="@Url.Content("~/Scripts/kav_loadstu.js")"></script>
-}
+    </div>
+</body>
 
 
+<!--Javascript fuction to load the group information table upon page loading-->
+
+<script type="text/javascript">
 
 
-@{  
-     <script src="~/Scripts/kav_loadstu.js"></script>
-}
+    function p() {
+        console.log("Aisass");
+
+        $.ajax({
+
+            url: "/Students_module/FillTableOnLoad",
+            data: "",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                var currentStatus = "";
+                var itemCount = data.avatarSet.length;
+               
+                for (var i = 0; i < itemCount; i++) {
+                    
+                    if (data.statusSet[i] == 2) {
+                        currentStatus = "Leader";
+                    }
+                    else if (data.statusSet[i] == 1) {
+                        currentStatus = "Accepted";
+                    }
+                    else {
+                        currentStatus = "Pending";
+                    }
+
+                    ///Enter the output obtain from above fuction to the group information table
+                    $("<tr><td><img  id='imgIcon' src='" + data.avatarSet[i] + "'/></td><td>" + data.nameSet[i] + "</td><td>" + currentStatus + "</td></tr>").appendTo("#Grptable");
+                }
+            },
+            error: function () {
+                alert("Failed to update in to notification table");
+            }
+        });
+    }
+</script>
+
